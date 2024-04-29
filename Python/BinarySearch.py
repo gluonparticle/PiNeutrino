@@ -1,36 +1,33 @@
-n=int(input("enter the number of elements:"))
-array=[]
-
-for i in range(n):
-    x=float(input("enter value"))
-    array.append(x)
-
-array.sort()
-  
-def binarySearch(array, x, low, high):
-
-    # Repeat until the pointers low and high meet each other
-    while low <= high:
-
-        mid = low + (high - low)//2
-
-        if array[mid] == x:
+def binary_search(arr, low, high, x):
+     # Check base case
+    if high >= low: 
+        mid = (high + low) // 2
+ 
+       
+        if arr[mid] == x:
             return mid
+ 
 
-        elif array[mid] < x:
-            low = mid + 1
+        elif arr[mid] > x:
+            return binary_search(arr, low, mid - 1, x)
+ 
 
         else:
-            high = mid - 1
-
-    return -1
-
-
-
-
-result = binarySearch(array, x, 0, len(array)-1)
-
+            return binary_search(arr, mid + 1, high, x)
+ 
+    
+    else:
+        # Element is not present in the array
+        return -1
+ 
+# Test array
+arr = [ 2, 3, 4, 10, 40 ]
+x = 10
+ 
+# Function call
+result = binary_search(arr, 0, len(arr)-1, x)
+ 
 if result != -1:
-    print("Element is present at index " + str(result))
+    print("Element is present at index", str(result))
 else:
-    print("Not found")
+    print("Element is not present in array")
