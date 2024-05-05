@@ -1,5 +1,5 @@
 def linearsearch(l,x):
-    n=len(arr)
+    n=len(l)
     for i in range(n):
         if(l[i]==x):
             return i
