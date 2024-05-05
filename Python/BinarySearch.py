@@ -21,7 +21,7 @@ arr = [ 2, 3, 4, 10, 40 ]
 x = 10
  
 # Function call
-result = binary_search(arr, x, 0,len(arr)-1)
+result = binarySearch(arr, x, 0,len(arr)-1)
  
 if result != -1:
     print("Element is present at index", str(result))
