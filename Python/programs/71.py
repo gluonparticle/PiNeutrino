@@ -1,5 +1,4 @@
-
-ifile = open('sam.txt')
+ifile=open("sam.txt","r",encoding='utf-8')
 ofile = open('samu.txt', mode= 'w')
 word_list =[]
 line=ifile.readlines()
