@@ -89,21 +89,20 @@ DivExp(x,y)
 
 
 
-
 class Complex:
-    def __init__(self,real,imag):
+    def __init__(self,real=0,img=0):
         self.real = real
-        self.imag = imag
-    def ___add__(c1,c2):
-        return Complex(c1.real+c2.real,c1.imag+c2.imag)
-    def ___str__(self):
-        return "%d + i%d"%(self.real,self.imag)
+        self.img = img
+    def __add__(c1,c2):
+        return Complex(c1.real+c2.real,c1.img+c2.img)
+    def __str__(self):
+        return "%d + i%d"%(self.real,self.img)
     
 
-c1 = Complex(-2,-5)
-c2 = Complex(5,6)
-print("ca+cb=",c1+c2)
-print(type(c1), id(c1))
+ca = Complex(-2,-5)
+cb = Complex(5,6)
+print("ca+cb=",ca+cb)
+print(type(ca), id(ca))
 complex_list = [ ]
 N = int(input("How many complex numbers do you want to add?"))
 for i in range(N):
@@ -112,7 +111,7 @@ for i in range(N):
 sum_series= Complex()
 for x in complex_list: 
     sum_series += x
-print("The sum of given complex number is", sum_series)
+print("The sum of given complex number is", sum_series)                  
 
 
 
