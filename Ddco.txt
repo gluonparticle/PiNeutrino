@@ -1,0 +1,74 @@
+FULL ADDER: -
+
+2023-24
+
+Step 1
+
+module p2updated(a,b,sum,carry.c);
+
+input [3:0] a;
+
+input [3:0] b;
+
+output [3:0] sum;
+
+output carry:
+
+input c:
+
+wire c1,c2,c3;
+
+fa FAO(sum[0],c1,a[0],b[0],e);
+
+fa FAI(sum[1],c2,a[1],b[1],cl);
+
+fa FA2(sum[2],c3,a[2],b[2].c2);
+
+fa FA3(sum[3].carry,a[3],b[3],c3);
+
+endmodule ;
+
+
+
+
+
+
+Step 2
+
+2023-24
+
+(create the file fa. v under the main module p2updated.v)
+
+i)right click on main module p2updated.v
+
+ii) select new source ->Verilog module ->enter file name as fa.v
+
+iii) fa. v sub module gets created under the main module as seen in the process window
+
+iv)type the code in the sub module fa. v and save.
+
+v)compile both the main module p2updated. v and sub module fa.v
+
+module fa(sum,carry,a,b,cin);
+
+output sum;
+
+output carry;
+
+input a;
+
+input b;
+
+input cin;
+
+wire w1,w2,w3,w4,w5,w6,w7,w8,w9,w10;
+
+not G1(wl,a);
+
+not G2(w2,b);
+
+not G3(w3,cin); and G 4(w4,a,b,cin); and G 5(w5,w1,w2,cin) ; and GG (w6,w1,b,w3); and G 7(w7,a,w2,w3) and G 8(w8,a,b); and G 9(w9,b,cin); and G10cin); or G11(sum, w4,w5,w6,w7); or G12(carry,w8,w9,w10);
+
+endmodule ;
+
+
