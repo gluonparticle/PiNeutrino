@@ -12,8 +12,8 @@ public class StringConstructor {
 
         // 2. Using default constructor (String default value)
         // Type: Default constructor
-        // This constructor creates a string with a default value (empty string).
-        String str2 = new String("");  // Default value is an empty string.
+        // This constructor creates a string with a default value 
+        String str2 = new String("Hello WOrld default!");  // Default value is an empty string.
         System.out.println("String created using default constructor: \"" + str2 + "\"");
 
         // 3. Using char array constructor
@@ -33,7 +33,7 @@ public class StringConstructor {
         // 5. Using byte array constructor with specified character encoding
         // Type: Constructor with byte array and length
         // This constructor creates a string using a specified subset of the byte array and length.
-        String str5 = new String(byteArray, 0, 5); // Using only first 5 bytes
+        String str5 = new String(byteArray, 0, 2); // Using only first 2 bytes
         System.out.println("String created using byte array constructor with specified encoding and length: \"" + str5 + "\"");
 
         // 6. Using StringBuilder constructor
