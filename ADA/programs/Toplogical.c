@@ -1,62 +1,72 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-void ts(int a[20][20], int n)
-{
-    int t[10], vis[10], stack[10], indeg[10], top = 0, ele, k = 1;
+void quicksort(int arr[], int low, int high);
+int partition(int arr[], int low, int high);
+void swap(int* a, int* b);
 
-    for(int i = 1; i <= n; i++) 
-    {
-        t[i] = 0;
-        vis[i] = 0;
-        indeg[i] = 0;
+void quicksort(int arr[], int low, int high) {
+    if (low < high) {
+        int pivot_index = partition(arr, low, high);
+        quicksort(arr, low, pivot_index - 1);
+        quicksort(arr, pivot_index + 1, high);
     }
-
-    for(int i = 1; i <= n; i++) 
-        for(int j = 1; j <= n; j++) 
-            if(a[i][j]) 
-                indeg[j]++;
-
-    printf("Indegree Array: ");
-    for(int i = 1; i <= n; i++) 
-        printf("%d ", indeg[i]);
-
-    for(int i = 1; i <= n; i++) 
-        if(indeg[i] == 0) 
-        {
-            stack[++top] = i;
-            vis[i] = 1;
-        }
-
-    while(top > 0)
-    {
-        ele = stack[top--];
-        t[k++] = ele;
-        
-        for(int j = 1; j <= n; j++)
-            if(a[ele][j] && !vis[j] && --indeg[j] == 0) 
-            {
-                stack[++top] = j;
-                vis[j] = 1;
-            }
-    }
-
-    printf("\nTopological Ordering is: ");
-    for(int i = 1; i <= n; i++) 
-        printf("%d ", t[i]);
 }
 
-int main()
-{
-    int n, a[20][20];
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    int j = high;
 
-    printf("Enter the number of nodes: ");
-    scanf("%d", &n);
+    while (i < j){
+        
+        do {
+            i++;
+        } while (arr[i] <= pivot && i < high);
 
-    printf("Enter the adjacency matrix:\n");
-    for(int i = 1; i <= n; i++)
-        for(int j = 1; j <= n; j++) 
-            scanf("%d", &a[i][j]);
+        do {
+            j--;
+        } while (arr[j] > pivot);
 
-    ts(a, n);
+        if (i < j) {
+            swap(&arr[i], &arr[j]);
+        }
+
+    } 
+
+    swap(&arr[i], &arr[high]);
+    return i;
+}
+
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    srand(time(NULL));
+    int n = 100000;
+    int elements[n];
+
+    for (int i = 0; i < n; i++) {
+        elements[i] = rand() % 1000;
+    }
+
+    for (int size = 5000; size <= n; size += 5000) {
+        int arr[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = elements[i];
+        }
+
+        clock_t start = clock();
+        quicksort(arr, 0, size - 1);
+        clock_t end = clock();
+
+        double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+        printf("Time taken to sort %d elements: %lf seconds\n", size, time_taken);
+    }
+
     return 0;
 }
