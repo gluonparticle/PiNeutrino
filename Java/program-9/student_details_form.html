@@ -1,0 +1,28 @@
+<!-- File: student_details_form.html -->
+
+<!--
+Quick Setup:
+
+1. Create Dynamic Web Project: Program9
+2. Create servlet in package: javaprogram → Name: StudentDetailsServlet
+3. Paste servlet code in StudentDetailsServlet.java
+4. Place this HTML in src/main/webapp/
+5. Replace web.xml with the one provided
+6. Run on Apache Tomcat
+7. Access: http://localhost:8080/Program9/student_details_form.html
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details Form</title>
+</head>
+<body>
+    <form action="studentDetails" method="post">
+        Name: <input type="text" name="name"><br>
+        USN: <input type="text" name="usn"><br>
+        Total Marks: <input type="text" name="totalMarks"><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
