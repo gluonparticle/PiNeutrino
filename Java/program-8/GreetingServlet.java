@@ -6,9 +6,8 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 
 public class GreetingServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws  IOException {
-        response.setContentType("text/html");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws  IOException {
+
         String username = request.getParameter("username");
         String greetingMessage = "Hello " + (username != null ? username : "User") + ", How Are You?";
 
