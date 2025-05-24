@@ -6,6 +6,11 @@ import java.io.IOException;
 
 public class ReadCookieServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        
+        response.setContentType("text/html");
+
+        
         Cookie[] cookies = request.getCookies();
         String empId = null;
 
