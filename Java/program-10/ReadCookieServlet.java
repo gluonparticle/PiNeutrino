@@ -18,7 +18,7 @@ public class ReadCookieServlet extends HttpServlet {
             }
         }
 
-        response.setContentType("text/html");
+
         if (empId != null) {
             response.getWriter().println("EMPID: " + empId);
         } else {
