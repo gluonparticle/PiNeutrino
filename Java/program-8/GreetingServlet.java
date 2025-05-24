@@ -11,6 +11,8 @@ public class GreetingServlet extends HttpServlet {
         String username = request.getParameter("username");
         String greetingMessage = "Hello " + (username != null ? username : "User") + ", How Are You?";
 
+        
+        response.setContentType("text/html");
         response.getWriter().println("<html><body>");
         response.getWriter().println("<h1>" + greetingMessage + "</h1>");
         response.getWriter().println("</body></html>");
