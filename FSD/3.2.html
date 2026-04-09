@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>        
+    <title>Multiple Students</title>
+
+    <script>
+        function createStudent() {
+            let student = {
+                name: prompt("Enter student name:"),
+                grade: parseFloat(prompt("Enter student grade:")),
+                subjects: prompt("Enter student subjects (comma separated):").split(',').map(s => s.trim()),
+                passed: function() {
+                    return this.grade >= 50;
+                }
+            };
+            return student;
+        }
+
+        function displayInfo(student) {
+            for (let key in student) {
+                if (typeof student[key] !== 'function') {
+                    console.log(key + ": " + student[key]);
+                }
+            }
+            console.log("Passed: " + (student.passed() ? "Yes" : "No"));
+            console.log("------------");
+        }
+
+        let numStudents = parseInt(prompt("How many students?"));
+
+        for (let i = 0; i < numStudents; i++) {
+            console.log("Enter details for student " + (i + 1));
+            let student = createStudent();
+            displayInfo(student);
+        }
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

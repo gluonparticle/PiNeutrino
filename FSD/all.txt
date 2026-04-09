@@ -1,0 +1,291 @@
+1a.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dynamic Input Experiment</title>
+<script>
+console.log("Hello, World!");
+
+let num1 = parseFloat(prompt("Enter the first number:"));
+let num2 = parseFloat(prompt("Enter the second number:"));
+
+let sum = num1 + num2;
+
+alert("The sum is: " + sum);
+</script>
+</head>
+<body>
+</body>
+</html>
+
+
+
+
+
+1b 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Cities Array</title>
+</head>
+
+
+<body>
+    <h1>Dynamic Cities Array</h1>
+
+    <script>
+        let input = prompt("Enter 5 cities separated by commas: ");
+        let cities = input.split(',').map(city => city.trim());
+
+        console.log("Initial cities:", cities);
+        console.log("Total number of cities:", cities.length);
+
+        let newCity = prompt("Enter a city to add to the end: ");
+        cities.push(newCity);
+
+        console.log("Cities after adding a new one:", cities);
+
+        console.log("Removing the first city:", cities[0]);
+        cities.shift();
+
+        console.log("Cities after removing the first one:", cities);
+
+        let searchCity = prompt("Enter a city to find its index: ");
+        let cityIndex = cities.indexOf(searchCity);
+
+        console.log("Index of " + searchCity + ":", cityIndex !== -1 ? cityIndex : "City not found");
+    </script>
+</body>
+
+</html>
+
+
+
+
+1b.js
+
+const prompt = require('prompt-sync')();
+let input = prompt("Enter 5 cities separated by commas: ");
+let cities = input.split(',').map(city => city.trim());
+
+console.log("Initial cities:", cities);
+console.log("Total number of cities:", cities.length);
+
+let newCity = prompt("Enter a city to add to the end: ");
+cities.push(newCity);
+
+console.log("Cities after adding a new one:", cities);
+
+console.log("Removing the first city:", cities[0]);
+cities.shift();
+
+console.log("Cities after removing the first one:", cities);
+
+let searchCity = prompt("Enter a city to find its index: ");
+let cityIndex = cities.indexOf(searchCity);
+
+console.log("Index of " + searchCity + ":", cityIndex !== -1 ? cityIndex : "City not found");
+
+
+
+
+
+
+2.html
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>String Manipulation</title>
+<script>
+// Function to check palindrome (method 1)
+function isPalindrome1(str) {
+    for (let i = 0; i < str.length / 2; i++) {
+        if (str.charAt(i) != str.charAt(str.length - 1 - i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Function to check palindrome (method 2)
+function isPalindrome(str) {
+    let cleanedStr = str.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+    return cleanedStr === cleanedStr.split('').reverse().join('');
+}
+
+// Run after page loads
+function runProgram() {
+    let userInput = prompt("Enter a string:");
+
+    let lengthOfString = userInput.length;
+
+    // Extract 'JavaScript'
+    let extractedWord = userInput.includes("JavaScript")
+        ? userInput.substring(
+            userInput.indexOf("JavaScript"),
+            userInput.indexOf("JavaScript") + "JavaScript".length
+        )
+        : "JavaScript not found";
+
+    // Replace word
+    let newString = userInput.replace("JavaScript", "TypeScript");
+
+    // Palindrome check
+    let palindromeCheck = isPalindrome(userInput);
+
+    console.log("New String after Replacement:", newString);
+
+    alert(
+        "Length: " + lengthOfString +
+        "\nExtracted Word: " + extractedWord +
+        "\nNew String: " + newString +
+        "\nPalindrome: " + palindromeCheck
+    );
+}
+</script>
+</head>
+
+<body onload="runProgram()">
+</body>
+</html>
+
+
+
+
+3.1 html 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>One Student</title>
+
+    <script>
+        function createStudent() {
+            let student = {
+                name: prompt("Enter the student's name:"),
+                grade: parseInt(prompt("Enter the student's grade:")),
+                subjects: prompt("Enter subjects (comma separated):")
+                    .split(',')
+                    .map(s => s.trim()),
+                passed: function() {
+                    return this.grade >= 50;
+                }
+            };
+            return student;
+        }
+
+        function displayInfo(student) {
+            for (let key in student) {
+                if (typeof student[key] !== 'function') {
+                    console.log(key + ": " + student[key]);
+                }
+            }
+
+            // ✅ Correctly calling the function
+            console.log("Passed: " + (student.passed() ? "Yes" : "No"));
+        }
+
+        let student = createStudent();
+        displayInfo(student);
+    </script>
+</head>
+
+<body>
+</body>
+</html>
+
+
+
+3.2 html
+
+
+<!DOCTYPE html>
+<html>
+<head>        
+    <title>Multiple Students</title>
+
+    <script>
+        function createStudent() {
+            let student = {
+                name: prompt("Enter student name:"),
+                grade: parseFloat(prompt("Enter student grade:")),
+                subjects: prompt("Enter student subjects (comma separated):").split(',').map(s => s.trim()),
+                passed: function() {
+                    return this.grade >= 50;
+                }
+            };
+            return student;
+        }
+
+        function displayInfo(student) {
+            for (let key in student) {
+                if (typeof student[key] !== 'function') {
+                    console.log(key + ": " + student[key]);
+                }
+            }
+            console.log("Passed: " + (student.passed() ? "Yes" : "No"));
+            console.log("------------");
+        }
+
+        let numStudents = parseInt(prompt("How many students?"));
+
+        for (let i = 0; i < numStudents; i++) {
+            console.log("Enter details for student " + (i + 1));
+            let student = createStudent();
+            displayInfo(student);
+        }
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
+
+
+
+
+4.html
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Event Listeners Experiment</title>
+</head>
+
+<body>
+
+    <button id="clickButton">Click Me</button>
+
+    <img id="experimentImage"
+    src="https://www.w3schools.com/html/img_chania.jpg"
+    alt="Experiment Image" width="200">
+
+    <script>
+        document.getElementById('clickButton').addEventListener('click', function() {
+            console.log("Button clicked!");
+        });
+
+        document.getElementById('experimentImage').addEventListener('mouseover', function() {
+            this.style.border = '5px solid red';
+        });
+
+        document.getElementById('experimentImage').addEventListener('mouseout', function() {
+            this.style.border = 'none';
+        });
+
+        document.addEventListener('keydown', function(event) {
+            console.log("Key pressed: " + event.key);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Event Listeners Experiment</title>
+</head>
+
+<body>
+
+    <button id="clickButton">Click Me</button>
+
+    <img id="experimentImage"
+    src="https://www.w3schools.com/html/img_chania.jpg"
+    alt="Experiment Image" width="200">
+
+    <script>
+        document.getElementById('clickButton').addEventListener('click', function() {
+            console.log("Button clicked!");
+        });
+
+        document.getElementById('experimentImage').addEventListener('mouseover', function() {
+            this.style.border = '5px solid red';
+        });
+
+        document.getElementById('experimentImage').addEventListener('mouseout', function() {
+            this.style.border = 'none';
+        });
+
+        document.addEventListener('keydown', function(event) {
+            console.log("Key pressed: " + event.key);
+        });
+    </script>
+
+</body>
+</html>

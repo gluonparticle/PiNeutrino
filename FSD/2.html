@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>String Manipulation</title>
+<script>
+// Function to check palindrome (method 1)
+function isPalindrome1(str) {
+    for (let i = 0; i < str.length / 2; i++) {
+        if (str.charAt(i) != str.charAt(str.length - 1 - i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Function to check palindrome (method 2)
+function isPalindrome(str) {
+    let cleanedStr = str.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+    return cleanedStr === cleanedStr.split('').reverse().join('');
+}
+
+// Run after page loads
+function runProgram() {
+    let userInput = prompt("Enter a string:");
+
+    let lengthOfString = userInput.length;
+
+    // Extract 'JavaScript'
+    let extractedWord = userInput.includes("JavaScript")
+        ? userInput.substring(
+            userInput.indexOf("JavaScript"),
+            userInput.indexOf("JavaScript") + "JavaScript".length
+        )
+        : "JavaScript not found";
+
+    // Replace word
+    let newString = userInput.replace("JavaScript", "TypeScript");
+
+    // Palindrome check
+    let palindromeCheck = isPalindrome(userInput);
+
+    console.log("New String after Replacement:", newString);
+
+    alert(
+        "Length: " + lengthOfString +
+        "\nExtracted Word: " + extractedWord +
+        "\nNew String: " + newString +
+        "\nPalindrome: " + palindromeCheck
+    );
+}
+</script>
+</head>
+
+<body onload="runProgram()">
+</body>
+</html>

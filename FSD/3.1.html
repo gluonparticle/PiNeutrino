@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>One Student</title>
+
+    <script>
+        function createStudent() {
+            let student = {
+                name: prompt("Enter the student's name:"),
+                grade: parseInt(prompt("Enter the student's grade:")),
+                subjects: prompt("Enter subjects (comma separated):")
+                    .split(',')
+                    .map(s => s.trim()),
+                passed: function() {
+                    return this.grade >= 50;
+                }
+            };
+            return student;
+        }
+
+        function displayInfo(student) {
+            for (let key in student) {
+                if (typeof student[key] !== 'function') {
+                    console.log(key + ": " + student[key]);
+                }
+            }
+
+            // ✅ Correctly calling the function
+            console.log("Passed: " + (student.passed() ? "Yes" : "No"));
+        }
+
+        let student = createStudent();
+        displayInfo(student);
+    </script>
+</head>
+
+<body>
+</body>
+</html>
