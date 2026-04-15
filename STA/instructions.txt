@@ -1,0 +1,498 @@
+####SHORT
+####
+####
+####
+
+
+
+2. The Standard Path: Fresh Eclipse to Execution (Maven)
+Assuming you walk into the lab and Eclipse is functioning normally.
+
+Step 1: Create the Project
+
+Open Eclipse. Choose a clean directory for your workspace.
+
+Go to File > New > Other... (or Ctrl+N).
+
+Type Maven in the filter, select Maven Project, click Next.
+
+Check the box "Create a simple project (skip archetype selection)". Click Next.
+
+Enter a Group Id (e.g., ise.com.lab) and Artifact Id (e.g., SeleniumAutomation). Click Finish.
+
+Step 2: Configure Dependencies
+
+Open the pom.xml file. Switch to the raw XML view using the tabs at the bottom.
+
+Paste the <dependencies> and <properties> (for Java 21 compliance) exactly as you have them in your file right above the </project> tag.
+
+Save the file (Ctrl+S).
+
+Crucial: Right-click the project folder -> Maven > Update Project... -> Check "Force Update of Snapshots/Releases" -> Click OK. Wait for the bottom-right progress bar to finish.
+
+Step 3: Add Code and Run
+
+Right-click src/test/java -> New > Class. Name it exactly as the public class in your code (e.g., Program12_EndToEnd).
+
+Paste your code. Remove any package ...; declarations at the top if you aren't using folders.
+
+Execution: * For Programs 8, 11, and 12 (TestNG): Right-click anywhere in the code -> Run As > TestNG Test.
+
+For Programs 7 and 10 (public static void main): Right-click -> Run As > Java Application.
+
+3. The Bulletproof Guide: Edge Cases & Manual Fallbacks
+If the lab network blocks Maven, or Eclipse is misconfigured, here is the tiered survival guide.
+
+Level 1: Surface Issues (IDE & Manual Linking)
+Issue: Eclipse doesn't have TestNG installed.
+
+Fix: Help > Eclipse Marketplace. Search TestNG and install "TestNG for Eclipse". Restart the IDE.
+
+Issue: Maven is blocked by the lab firewall (Dependencies won't download).
+
+Fix (Manual Configuration): 1. Download: Go to mvnrepository.com.
+2. Search selenium java. Click the latest 4.x version. Click the "jar" link in the "Files" row to download it. You will also need the core Selenium server standalone jar if you can find it.
+3. Search testng. Click version 7.9.0. Download the jar.
+4. Link: Right-click your project -> Build Path > Configure Build Path.
+5. Go to the Libraries tab. Click on Classpath -> Add External JARs. Select the files you downloaded. Apply and Close.
+
+Issue: Code has weird ghost errors that won't go away.
+
+Fix: Project > Clean... -> Select your project and click Clean. This forces Eclipse to delete old compiled .class files and recompile everything from scratch.
+
+Issue: "The declared package does not match..."
+
+Fix: Your .java file is in the wrong physical folder. Delete the package name; line at the top of the file, OR right-click src/test/java, create a new Package with that exact name, and drag the .java file into it.
+
+Level 2: Deep System Issues (Environment & Paths)
+Issue: Compiler Compliance / JRE Mismatch (e.g., "Must be 1.8 but JRE 21 is used").
+
+Fix: 1. Right-click Project -> Properties > Java Compiler. Uncheck "Use compliance from execution environment" and manually set the dropdown to the Java version installed on the machine (e.g., 17 or 21).
+2. Next, go to Properties > Java Build Path > Libraries. If the "JRE System Library" is wrong, click it, hit Edit, and select the correct "Workspace default JRE".
+
+Issue: javac or java command not found (Environment Variables).
+
+Fix (Linux/Arch): Your PATH or JAVA_HOME is missing.
+
+Bash
+# Find where Java is installed
+archlinux-java status
+
+# Temporarily set it for your terminal session
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
+Fix (Windows Lab PC): Press Win Key -> type "Environment Variables". Under System Variables, add a new variable JAVA_HOME pointing to C:\Program Files\Java\jdk-xx. Edit the Path variable and add %JAVA_HOME%\bin.
+
+Issue: Maven cache is hopelessly corrupted.
+
+Fix: Sometimes Maven downloads a half-finished file and refuses to fix it. Close Eclipse, open your terminal, and nuke the cache:
+
+Linux: rm -rf ~/.m2/repository
+
+Windows: Delete C:\Users\YourUser\.m2\repository
+
+Reopen Eclipse and run Maven > Update Project again.
+
+Issue: Eclipse Workspace is entirely broken.
+
+Fix: Close Eclipse. Go to your workspace folder and delete the hidden .metadata directory. Reopen Eclipse. It will treat the workspace as brand new, and you can re-import your projects via File > Import > Existing Maven Projects. (If on Linux, you can also launch Eclipse from the terminal with the -clean flag to flush its UI cache).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Why not:
+
+```java
+WebDriver d = new WebDriver;
+```
+
+* `WebDriver` is an **interface**
+* Interfaces **cannot be instantiated**
+* `ChromeDriver` is a **class that implements WebDriver**
+
+Correct form:
+
+```java
+WebDriver d = new ChromeDriver();
+```
+
+---
+
+## 2. The Standard Path: Fresh Eclipse to Execution (Maven)
+
+Assuming Eclipse is working normally.
+
+### Step 1: Create the Project
+
+Open Eclipse and select a clean workspace directory.
+
+Go to:
+
+```
+File > New > Other... (Ctrl + N)
+```
+
+Type **Maven**, select **Maven Project**, click **Next**.
+
+Enable:
+
+```
+Create a simple project (skip archetype selection)
+```
+
+Click **Next**.
+
+Enter:
+
+```
+Group Id: ise.com.lab
+Artifact Id: SeleniumAutomation
+```
+
+Click **Finish**.
+
+---
+
+### Step 2: Configure Dependencies
+
+Open `pom.xml`.
+
+Switch to **XML view** (bottom tabs).
+
+Paste your:
+
+* `<dependencies>`
+* `<properties>` (Java version, e.g., 21)
+
+Place them just above:
+
+```xml
+</project>
+```
+
+Save the file (`Ctrl + S`).
+
+Now perform a forced Maven update:
+
+```
+Right-click project
+→ Maven
+→ Update Project...
+→ Check "Force Update of Snapshots/Releases"
+→ Click OK
+```
+
+Wait for the bottom-right progress bar to complete.
+
+---
+
+### Step 3: Add Code and Run
+
+Right-click:
+
+```
+src/test/java → New → Class
+```
+
+Name the class exactly as your public class (e.g., `Program12_EndToEnd`).
+
+Paste your code.
+
+If not using packages:
+
+* Remove the line:
+
+```java
+package ...;
+```
+
+---
+
+### Execution
+
+For TestNG-based programs (8, 11, 12):
+
+```
+Right-click code → Run As → TestNG Test
+```
+
+For standard Java programs (7, 10):
+
+```
+Run As → Java Application
+```
+
+---
+
+## 3. The Bulletproof Guide: Edge Cases & Manual Fallbacks
+
+---
+
+### Level 1: Surface Issues (IDE + Dependencies)
+
+#### Issue: TestNG not installed
+
+Fix:
+
+```
+Help → Eclipse Marketplace
+Search: TestNG
+Install "TestNG for Eclipse"
+Restart Eclipse
+```
+
+---
+
+#### Issue: Maven blocked (dependencies not downloading)
+
+Manual configuration:
+
+1. Go to:
+
+```
+https://mvnrepository.com
+```
+
+2. Download:
+
+* Selenium Java (latest 4.x)
+* TestNG (7.9.0)
+
+3. Link JARs:
+
+```
+Right-click project
+→ Build Path
+→ Configure Build Path
+→ Libraries tab
+→ Add External JARs
+→ Select downloaded files
+→ Apply and Close
+```
+
+---
+
+#### Issue: Ghost errors / random red marks
+
+Fix:
+
+```
+Project → Clean...
+Select project → Clean
+```
+
+Forces recompilation of `.class` files.
+
+---
+
+#### Issue: Package mismatch error
+
+Error:
+
+```
+The declared package does not match...
+```
+
+Fix options:
+
+* Remove:
+
+```java
+package ...;
+```
+
+OR
+
+* Create matching package:
+
+```
+Right-click src/test/java → New → Package
+```
+
+* Move `.java` file into it
+
+---
+
+### Level 2: Deep System Issues
+
+---
+
+#### Issue: Java version mismatch
+
+Example:
+
+```
+Must be 1.8 but JRE 21 is used
+```
+
+Fix:
+
+1. Project compiler:
+
+```
+Right-click project
+→ Properties
+→ Java Compiler
+→ Uncheck "Use compliance from execution environment"
+→ Set correct version (17 or 21)
+```
+
+2. JRE fix:
+
+```
+Properties → Java Build Path → Libraries
+Select JRE System Library → Edit
+Choose correct JRE
+```
+
+---
+
+#### Issue: `java` / `javac` not found
+
+##### Linux (Arch):
+
+```bash
+archlinux-java status
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
+```
+
+---
+
+##### Windows:
+
+* Open **Environment Variables**
+* Add:
+
+```
+JAVA_HOME = C:\Program Files\Java\jdk-xx
+```
+
+* Edit `Path`:
+
+```
+Add → %JAVA_HOME%\bin
+```
+
+---
+
+#### Issue: Maven cache corrupted
+
+Fix:
+
+Delete cache directory:
+
+* Linux:
+
+```
+~/.m2/repository
+```
+
+* Windows:
+
+```
+C:\Users\YourUser\.m2\repository
+```
+
+Then:
+
+* Reopen Eclipse
+* Run: `Maven > Update Project`
+
+---
+
+#### Issue: Eclipse workspace broken
+
+Fix:
+
+1. Close Eclipse
+2. Navigate to workspace folder
+3. Delete:
+
+```
+.metadata
+```
+
+4. Reopen Eclipse
+5. Import project again:
+
+```
+File → Import → Existing Maven Projects
+```
+
+Optional (Linux):
+
+```
+eclipse -clean
+```
+
+---
+
+This version keeps everything detailed, structured, and exam/lab-ready without trimming content.
