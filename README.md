@@ -44,4 +44,3 @@ Clear-History
 Write-Output "DONE: Files successfully downloaded from GitHub and copied to target paths."
 
 
-'''
