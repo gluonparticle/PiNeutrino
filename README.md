@@ -1,3 +1,5 @@
+```powershell
+
 $downloadUrl = "https://raw.githubusercontent.com/gluonparticle/PiNeutrino/main/backups.zip"
 
 $tmp = "$env:TEMP\lab_setup"
@@ -40,3 +42,6 @@ for ($i = 0; $i -lt 3; $i++) {
 Clear-History
 
 Write-Output "DONE: Files successfully downloaded from GitHub and copied to target paths."
+
+
+'''
