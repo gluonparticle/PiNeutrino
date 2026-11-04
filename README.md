@@ -1,3 +1,97 @@
+# 1. FIX HDFS SAFE MODE PERMANENTLY
+sudo -u hdfs hdfs dfsadmin -safemode leave
+hdfs fsck / -delete
+sudo -u hdfs hdfs dfsadmin -safemode leave
+
+# 2. RUN PROGRAM 7: HIVE DDL
+echo -e "101,John,IS,85\n102,Alice,IT,92\n103,Bob,IS,76\n104,David,EC,89\n105,Eve,IT,67\n106,john,AIML,88\n107,George,EC,100\n108,David,IS,99\n109,Tim,IT,88\n110,Clara,EC,97" > students_hive.txt
+
+hive -e "
+CREATE DATABASE IF NOT EXISTS college_db;
+USE college_db;
+ALTER DATABASE college_db SET DBPROPERTIES ('owner'='vijay');
+
+DROP TABLE IF EXISTS students;
+CREATE TABLE students (id INT, name STRING, dept STRING, marks INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
+LOAD DATA LOCAL INPATH 'students_hive.txt' INTO TABLE students;
+ALTER TABLE students ADD COLUMNS (email STRING);
+
+DROP VIEW IF EXISTS high_scorers;
+CREATE VIEW high_scorers AS SELECT name, marks FROM students WHERE marks > 80;
+SELECT * FROM high_scorers;
+
+SELECT UPPER(name) FROM students;
+
+DROP INDEX IF EXISTS student_idx ON students;
+CREATE INDEX student_idx ON TABLE students (dept) AS 'COMPACT' WITH DEFERRED REBUILD;
+ALTER INDEX student_idx ON students REBUILD;
+"
+
+# 3. RUN PROGRAM 8: SPARK WORD COUNT
+echo -e "BIT\nCODE\nHE\nIN\nIS\nLIKES\nMY\nNAME\nTO\nVIJAY\nWORKING\nIS\nVIJAY" > word.txt
+hdfs dfs -mkdir -p /user/cloudera
+hdfs dfs -put -f word.txt /user/cloudera/word.txt
+
+cat << 'EOF' > wordcount.py
+from pyspark import SparkContext, SparkConf
+
+conf = SparkConf().setAppName("word count").setMaster("local")
+sc = SparkContext(conf=conf)
+
+text_file = sc.textFile("word.txt")
+counts = text_file.flatMap(lambda line: line.split()) \
+                  .filter(lambda word: word != "") \
+                  .map(lambda word: (word, 1)) \
+                  .reduceByKey(lambda x, y: x + y)
+
+output = counts.collect()
+for (word, count) in output:
+    print("%s: %i" % (word, count))
+EOF
+
+spark-submit wordcount.py
+
+# 4. RUN PROGRAM 9: CDH DATA ANALYSIS SETUP
+echo -e "1,2025-01-01,North,TV,2,300,600\n2,2025-01-01,East,TV,1,700,700\n3,2025-01-02,North,Keyboard,2,350,700\n4,205-01-03,South,TV,2,50,100\n5,2025-01-03,North,printer,1,200,200\n6,2025-01-02,North,printer,1,200,200\n7,2025-02-05,south,Laptop,1,500,200" > sales_data.txt
+
+hive -e "
+CREATE DATABASE IF NOT EXISTS default;
+USE default;
+DROP TABLE IF EXISTS sales_data;
+CREATE TABLE sales_data (id INT, date STRING, region STRING, product STRING, qty INT, price INT, sales INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+LOAD DATA LOCAL INPATH 'sales_data.txt' INTO TABLE sales_data;
+SELECT * FROM sales_data;
+"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 sudo -u hdfs hdfs dfsadmin -safemode leave
 
 hdfs dfs -mkdir -p /user/root/pigdata
