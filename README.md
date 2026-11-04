@@ -11,8 +11,10 @@ hdfs dfs -mkdir -p /user/root
 echo -e "\n========================================="
 echo "PROGRAM 6: PIG LATIN SCRIPTS"
 echo "========================================="
-hdfs dfs -mkdir -p /user/root/pigdata
+hdfs dfs -rm -r -f /user/root/pigdata
 hdfs dfs -rm -r -f /user/root/pigoutput
+hdfs dfs -mkdir -p /user/root/pigdata
+
 echo -e "101,John,CS,85\n102,Alice,IT,92\n103,Bob,CS,76\n104,David,EC,89\n105,Eve,IT,67\n106,john,AIML,88\n107,George,EC,100" > students_pig.txt
 hdfs dfs -copyFromLocal -f students_pig.txt /user/root/pigdata/students.txt
 
@@ -33,13 +35,13 @@ EOF
 pig -x mapreduce PigExample.pig
 
 echo -e "\n--- PIG OUTPUT: AVERAGE MARKS ---"
-hdfs dfs -cat /user/root/pigoutput/average_marks/part-r-00000
+hdfs dfs -cat /user/root/pigoutput/average_marks/part-*
 echo -e "\n--- PIG OUTPUT: HIGH SCORERS ---"
-hdfs dfs -cat /user/root/pigoutput/high_scorers/part-m-00000
+hdfs dfs -cat /user/root/pigoutput/high_scorers/part-*
 echo -e "\n--- PIG OUTPUT: PROJECTED ---"
-hdfs dfs -cat /user/root/pigoutput/projected/part-m-00000
+hdfs dfs -cat /user/root/pigoutput/projected/part-*
 echo -e "\n--- PIG OUTPUT: SORTED STUDENTS ---"
-hdfs dfs -cat /user/root/pigoutput/sorted_students/part-r-00000
+hdfs dfs -cat /user/root/pigoutput/sorted_students/part-*
 
 
 echo -e "\n========================================="
@@ -52,18 +54,19 @@ CREATE DATABASE IF NOT EXISTS college_db;
 USE college_db;
 ALTER DATABASE college_db SET DBPROPERTIES ('owner'='vijay');
 
+DROP VIEW IF EXISTS high_scorers;
+DROP INDEX IF EXISTS student_idx ON students;
 DROP TABLE IF EXISTS students;
+
 CREATE TABLE students (id INT, name STRING, dept STRING, marks INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
-LOAD DATA LOCAL INPATH 'students_hive.txt' INTO TABLE students;
+LOAD DATA LOCAL INPATH 'students_hive.txt' OVERWRITE INTO TABLE students;
 ALTER TABLE students ADD COLUMNS (email STRING);
 
-DROP VIEW IF EXISTS high_scorers;
 CREATE VIEW high_scorers AS SELECT name, marks FROM students WHERE marks > 80;
 SELECT * FROM high_scorers;
 
 SELECT UPPER(name) FROM students;
 
-DROP INDEX IF EXISTS student_idx ON students;
 CREATE INDEX student_idx ON TABLE students (dept) AS 'COMPACT' WITH DEFERRED REBUILD;
 ALTER INDEX student_idx ON students REBUILD;
 "
@@ -72,6 +75,7 @@ ALTER INDEX student_idx ON students REBUILD;
 echo -e "\n========================================="
 echo "PROGRAM 8: SPARK WORD COUNT"
 echo "========================================="
+hdfs dfs -rm -f /user/cloudera/word.txt
 echo -e "BIT\nCODE\nHE\nIN\nIS\nLIKES\nMY\nNAME\nTO\nVIJAY\nWORKING\nIS\nVIJAY" > word.txt
 hdfs dfs -put -f word.txt /user/cloudera/word.txt
 
@@ -105,7 +109,7 @@ CREATE DATABASE IF NOT EXISTS default;
 USE default;
 DROP TABLE IF EXISTS sales_data;
 CREATE TABLE sales_data (id INT, date STRING, region STRING, product STRING, qty INT, price INT, sales INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
-LOAD DATA LOCAL INPATH 'sales_data.txt' INTO TABLE sales_data;
+LOAD DATA LOCAL INPATH 'sales_data.txt' OVERWRITE INTO TABLE sales_data;
 SELECT * FROM sales_data;
 "
 } > output.txt 2>&1
