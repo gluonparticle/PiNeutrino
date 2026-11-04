@@ -1,3 +1,5 @@
+sudo -u hdfs hdfs dfsadmin -safemode leave
+
 hdfs dfs -mkdir -p /user/root/pigdata
 hdfs dfs -rm -r -f /user/root/pigoutput
 echo -e "101,John,CS,85\n102,Alice,IT,92\n103,Bob,CS,76\n104,David,EC,89\n105,Eve,IT,67\n106,john,AIML,88\n107,George,EC,100" > students_pig.txt
@@ -29,6 +31,7 @@ hdfs dfs -cat /user/root/pigoutput/average_marks/part-r-00000
 
 
 
+sudo -u hdfs hdfs dfsadmin -safemode leave
 
 echo -e "101,John,IS,85\n102,Alice,IT,92\n103,Bob,IS,76\n104,David,EC,89\n105,Eve,IT,67\n106,john,AIML,88\n107,George,EC,100\n108,David,IS,99\n109,Tim,IT,88\n110,Clara,EC,97" > students_hive.txt
 
@@ -65,7 +68,12 @@ ALTER INDEX student_idx ON students REBUILD;
 
 
 
+
+
+sudo -u hdfs hdfs dfsadmin -safemode leave
+
 echo -e "BIT\nCODE\nHE\nIN\nIS\nLIKES\nMY\nNAME\nTO\nVIJAY\nWORKING\nIS\nVIJAY" > word.txt
+hdfs dfs -put -f word.txt /user/cloudera/word.txt
 
 cat << 'EOF' > wordcount.py
 from pyspark import SparkContext, SparkConf
@@ -99,9 +107,12 @@ spark-submit wordcount.py
 
 
 
-echo -e "1,2025-01-01,North,TV,2,300,600\n2,2025-01-01,East,TV,1,700,700\n3,2025-01-02,North,Keyboard,2,350,700\n4,205-01-03,South,TV,2,50,100\n5,2025-01-03,North,printer,1,200,200\n6,2025-01-02,North,printer,1,200,200\n7,2025-02-05,south,Laptop,1,500,200" > sales_data.txt
 
-hdfs dfs -put -f sales_data.txt /user/cloudera/
+
+
+sudo -u hdfs hdfs dfsadmin -safemode leave
+
+echo -e "1,2025-01-01,North,TV,2,300,600\n2,2025-01-01,East,TV,1,700,700\n3,2025-01-02,North,Keyboard,2,350,700\n4,205-01-03,South,TV,2,50,100\n5,2025-01-03,North,printer,1,200,200\n6,2025-01-02,North,printer,1,200,200\n7,2025-02-05,south,Laptop,1,500,200" > sales_data.txt
 
 hive -e "
 CREATE DATABASE IF NOT EXISTS default;
@@ -109,4 +120,6 @@ USE default;
 DROP TABLE IF EXISTS sales_data;
 CREATE TABLE sales_data (id INT, date STRING, region STRING, product STRING, qty INT, price INT, sales INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
 LOAD DATA LOCAL INPATH 'sales_data.txt' INTO TABLE sales_data;
+SELECT * FROM sales_data;
 "
+
