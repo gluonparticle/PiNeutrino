@@ -271,3 +271,7 @@ INSERT INTO sales_data VALUES
 (5, '2025-01-03', 'North', 'printer', 1, 200, 200),
 (6, '2025-01-02', 'North', 'printer', 1, 200, 200),
 (7, '2025-02-05', 'south', 'Laptop', 1, 500, 200);
+
+
+
+SELECT region, SUM(sales) FROM sales_data GROUP BY region;
