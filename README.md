@@ -258,3 +258,16 @@ FIELDS TERMINATED BY ',';
 
 LOAD DATA LOCAL INPATH 'sales_data.txt' OVERWRITE INTO TABLE sales_data;
 "
+
+
+
+
+
+INSERT INTO sales_data VALUES 
+(1, '2025-01-01', 'North', 'TV', 2, 300, 600),
+(2, '2025-01-01', 'East', 'TV', 1, 700, 700),
+(3, '2025-01-02', 'North', 'Keyboard', 2, 350, 700),
+(4, '205-01-03', 'South', 'TV', 2, 50, 100),
+(5, '2025-01-03', 'North', 'printer', 1, 200, 200),
+(6, '2025-01-02', 'North', 'printer', 1, 200, 200),
+(7, '2025-02-05', 'south', 'Laptop', 1, 500, 200);
