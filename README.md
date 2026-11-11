@@ -302,7 +302,7 @@ Step 2: Drop and Create TablePaste this query into the editor and click the blue
 
 DROP TABLE IF EXISTS sales_data;
 
-
+```bash
 CREATE TABLE sales_data (
     id INT,
     `date` STRING,
@@ -312,7 +312,7 @@ CREATE TABLE sales_data (
     price INT,
     sales INT
 )
-
+```
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ',';
 
