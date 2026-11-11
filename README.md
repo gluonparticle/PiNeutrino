@@ -1,3 +1,6 @@
+#Program 5
+
+
 use college_db;
 
 db.student.drop();
@@ -65,7 +68,7 @@ db.student.drop();
 
 
 
-
+#Program 6
 
 sudo -u hdfs hdfs dfsadmin -safemode leave
 
@@ -134,7 +137,7 @@ hdfs dfs -cat /user/root/pigoutput/sorted_students/part-*
 
 
 
-
+#Program 7
 
 
 sudo -u hdfs hdfs dfsadmin -safemode leave
@@ -219,11 +222,7 @@ DROP DATABASE college_db CASCADE;
 
 
 
-
-
-
-
-
+#Program 8
 
 
 sudo -u hdfs hdfs dfsadmin -safemode leave
@@ -289,7 +288,7 @@ spark-submit wordcount.py
 
 
 
-
+#Program 9
 
 Step 1: Open the Impala Editor in HueOpen Firefox in the Cloudera VM desktop and navigate to http://localhost:8888 (login: cloudera / cloudera).
 
