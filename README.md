@@ -318,7 +318,9 @@ FIELDS TERMINATED BY ',';
 ```
 
 
-Step 3: Insert the DataClear the editor, paste this insert statement, and click Play (Execute):SQLINSERT INTO sales_data VALUES 
+Step 3: Insert the DataClear the editor, paste this insert statement, and click Play (Execute):
+
+```sqlINSERT INTO sales_data VALUES 
 (1, '2025-01-01', 'North', 'TV', 2, 300, 600),
 (2, '2025-01-01', 'East', 'TV', 1, 700, 700),
 (3, '2025-01-02', 'North', 'Keyboard', 2, 350, 700),
@@ -326,10 +328,13 @@ Step 3: Insert the DataClear the editor, paste this insert statement, and click 
 (5, '2025-01-03', 'North', 'printer', 1, 200, 200),
 (6, '2025-01-02', 'North', 'printer', 1, 200, 200),
 (7, '2025-02-05', 'South', 'Laptop', 1, 500, 200);
+```
 
 
-Step 4: Run the Aggregation QueryClear the editor, paste the report query, and click Play (Execute):SQLSELECT region, SUM(sales) FROM sales_data GROUP BY region;
-
+Step 4: Run the Aggregation QueryClear the editor, paste the report query, and click Play (Execute):
+```sql
+SELECT region, SUM(sales) FROM sales_data GROUP BY region;
+```
 Step 5: Render the Bar Chart in the GUIIn the Results pane below the editor, 
 look at the vertical strip of icons on the left side.Click the Chart icon 
 (the vertical bar graph icon right below the table grid icon).
