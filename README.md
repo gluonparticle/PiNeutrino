@@ -291,27 +291,17 @@ spark-submit wordcount.py
 
 
 
-Step 1: Open Hue
-Open Firefox inside the Cloudera VM.
+Step 1: Open the Impala Editor in HueOpen Firefox in the Cloudera VM desktop and navigate to http://localhost:8888 (login: cloudera / cloudera).
 
-Go to http://localhost:8888.
 
-Log in with:
+In the top navigation bar, click Query $\rightarrow$ select Impala.In the left panel, make sure the database is set to default.
 
-Username: cloudera
 
-Password: cloudera
-
-Step 2: Open the Query Editor
-In the top navigation bar, click Query and select Hive (or Impala).
-
-Look at the left panel and confirm the database is set to default.
-
-Step 3: Create the Table
-Clear whatever is in the editor pane, paste this query, and click the blue Play / Execute button:
+Step 2: Drop and Create TablePaste this query into the editor and click the blue Play (Execute) button:
 
 
 DROP TABLE IF EXISTS sales_data;
+
 
 CREATE TABLE sales_data (
     id INT,
@@ -322,15 +312,11 @@ CREATE TABLE sales_data (
     price INT,
     sales INT
 )
+
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ',';
-(If using Impala instead of Hive, run INVALIDATE METADATA sales_data; right after).
 
-Step 4: Insert the Data
-Clear the editor pane, paste the insert statement, and click the blue Play / Execute button:
-
-
-INSERT INTO sales_data VALUES 
+Step 3: Insert the DataClear the editor, paste this insert statement, and click Play (Execute):SQLINSERT INTO sales_data VALUES 
 (1, '2025-01-01', 'North', 'TV', 2, 300, 600),
 (2, '2025-01-01', 'East', 'TV', 1, 700, 700),
 (3, '2025-01-02', 'North', 'Keyboard', 2, 350, 700),
@@ -338,20 +324,12 @@ INSERT INTO sales_data VALUES
 (5, '2025-01-03', 'North', 'printer', 1, 200, 200),
 (6, '2025-01-02', 'North', 'printer', 1, 200, 200),
 (7, '2025-02-05', 'South', 'Laptop', 1, 500, 200);
-Step 5: Run the Aggregation Query
-Clear the editor pane, enter the report query, and click Play / Execute:
 
 
-SELECT region, SUM(sales) FROM sales_data GROUP BY region;
-Step 6: Render the Bar Chart
-Look directly beneath the query editor at the Results panel.
+Step 4: Run the Aggregation QueryClear the editor, paste the report query, and click Play (Execute):SQLSELECT region, SUM(sales) FROM sales_data GROUP BY region;
 
-On the far-left strip of the Results panel, click the Chart (bar graph) icon located right below the table grid icon.
+Step 5: Render the Bar Chart in the GUIIn the Results pane below the editor, 
+look at the vertical strip of icons on the left side.Click the Chart icon 
+(the vertical bar graph icon right below the table grid icon).
 
-Configure the visual controls:
-
-Type: Bars
-
-X-axis: region
-
-Y-axis: sum(sales) (or _c1)
+Set the chart parameters:Chart Type: BarsX-axis: regionY-axis: sum(sales)The bar chart will render directly on screen showing the aggregated sales per region.
