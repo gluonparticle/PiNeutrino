@@ -291,56 +291,67 @@ spark-submit wordcount.py
 
 
 
+Step 1: Open Hue
+Open Firefox inside the Cloudera VM.
 
+Go to http://localhost:8888.
 
-sudo -u hdfs hdfs dfsadmin -safemode leave
+Log in with:
 
-cat << 'EOF' > sales_data.txt
-1,2025-01-01,North,TV,2,300,600
-2,2025-01-01,East,TV,1,700,700
-3,2025-01-02,North,Keyboard,2,350,700
-4,205-01-03,South,TV,2,50,100
-5,2025-01-03,North,printer,1,200,200
-6,2025-01-02,North,printer,1,200,200
-7,2025-02-05,south,Laptop,1,500,200
-EOF
+Username: cloudera
 
-hdfs dfs -mkdir -p /user/cloudera
-hdfs dfs -put -f sales_data.txt /user/cloudera/
+Password: cloudera
 
-hive -e "
-CREATE DATABASE IF NOT EXISTS default;
-USE default;
+Step 2: Open the Query Editor
+In the top navigation bar, click Query and select Hive (or Impala).
+
+Look at the left panel and confirm the database is set to default.
+
+Step 3: Create the Table
+Clear whatever is in the editor pane, paste this query, and click the blue Play / Execute button:
+
+SQL
 DROP TABLE IF EXISTS sales_data;
 
 CREATE TABLE sales_data (
-    id INT, 
-    \`date\` STRING, 
-    region STRING, 
-    product STRING, 
-    qty INT, 
-    price INT, 
+    id INT,
+    `date` STRING,
+    region STRING,
+    product STRING,
+    qty INT,
+    price INT,
     sales INT
-) 
-ROW FORMAT DELIMITED 
+)
+ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ',';
+(If using Impala instead of Hive, run INVALIDATE METADATA sales_data; right after).
 
-LOAD DATA LOCAL INPATH 'sales_data.txt' OVERWRITE INTO TABLE sales_data;
-"
+Step 4: Insert the Data
+Clear the editor pane, paste the insert statement, and click the blue Play / Execute button:
 
-
-
-
-
+SQL
 INSERT INTO sales_data VALUES 
 (1, '2025-01-01', 'North', 'TV', 2, 300, 600),
 (2, '2025-01-01', 'East', 'TV', 1, 700, 700),
 (3, '2025-01-02', 'North', 'Keyboard', 2, 350, 700),
-(4, '205-01-03', 'South', 'TV', 2, 50, 100),
+(4, '2025-01-03', 'South', 'TV', 2, 50, 100),
 (5, '2025-01-03', 'North', 'printer', 1, 200, 200),
 (6, '2025-01-02', 'North', 'printer', 1, 200, 200),
-(7, '2025-02-05', 'south', 'Laptop', 1, 500, 200);
+(7, '2025-02-05', 'South', 'Laptop', 1, 500, 200);
+Step 5: Run the Aggregation Query
+Clear the editor pane, enter the report query, and click Play / Execute:
 
-
-
+SQL
 SELECT region, SUM(sales) FROM sales_data GROUP BY region;
+Step 6: Render the Bar Chart
+Look directly beneath the query editor at the Results panel.
+
+On the far-left strip of the Results panel, click the Chart (bar graph) icon located right below the table grid icon.
+
+Configure the visual controls:
+
+Type: Bars
+
+X-axis: region
+
+Y-axis: sum(sales) (or _c1)
