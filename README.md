@@ -1,3 +1,72 @@
+use college_db;
+
+db.student.drop();
+
+db.student.insertMany([
+  { "_id": 1, "name": "Alice", "age": 21, "marks": 85, "department": "CSE" },
+  { "_id": 2, "name": "Clara", "age": 21, "marks": 87, "department": "ISE" },
+  { "_id": 3, "name": "Flavy", "age": 22, "marks": 80, "department": "CSE" },
+  { "_id": 4, "name": "Grace", "age": 22, "marks": 90, "department": "ISE" },
+  { "_id": 5, "name": "Frank", "age": 22, "marks": 75, "department": "CSE" },
+  { "_id": 6, "name": "Frank", "age": 24, "marks": 65, "department": "CSE" },
+  { "_id": 7, "name": "Rosy", "age": 24, "marks": 88, "department": "ECE" },
+  { "_id": 8, "name": "Kavin", "age": 24, "marks": 82, "department": "ISE" }
+]);
+
+// 1. Count
+db.student.countDocuments();
+db.student.countDocuments({ marks: { $gt: 80 } });
+
+// 2. Sort
+db.student.find().sort({ marks: -1 });
+db.student.find().sort({ name: 1, age: -1 });
+
+// 3. Limit & Skip
+db.student.find().limit(5);
+db.student.find().skip(5).limit(5);
+
+// 4. Aggregate
+db.student.aggregate([{ $group: { _id: "$department", totalStudents: { $sum: 1 } } }]);
+db.student.aggregate([{ $group: { _id: "$department", avgMarks: { $avg: "$marks" } } }]);
+db.student.aggregate([
+  { $match: { marks: { $gt: 60 } } },
+  { $group: { _id: "$department", avgMarks: { $avg: "$marks" } } },
+  { $sort: { avgMarks: -1 } },
+  { $limit: 3 }
+]);
+
+// 5. Delete
+db.student.deleteOne({ name: "Flavy" });
+db.student.deleteMany({ marks: { $lt: 70 } });
+
+// Clean up entirely at the end
+db.student.drop();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 sudo -u hdfs hdfs dfsadmin -safemode leave
 
 hdfs dfs -rm -r -f /user/root/pigdata /user/root/pigoutput
