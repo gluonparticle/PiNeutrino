@@ -312,9 +312,11 @@ CREATE TABLE sales_data (
     price INT,
     sales INT
 )
-```
+
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ',';
+```
+
 
 Step 3: Insert the DataClear the editor, paste this insert statement, and click Play (Execute):SQLINSERT INTO sales_data VALUES 
 (1, '2025-01-01', 'North', 'TV', 2, 300, 600),
