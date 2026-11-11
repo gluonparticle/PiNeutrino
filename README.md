@@ -294,7 +294,7 @@ spark-submit wordcount.py
 Step 1: Open the Impala Editor in HueOpen Firefox in the Cloudera VM desktop and navigate to http://localhost:8888 (login: cloudera / cloudera).
 
 
-In the top navigation bar, click Query $\rightarrow$ select Impala.In the left panel, make sure the database is set to default.
+In the top navigation bar, click Query > select Impala.In the left panel, make sure the database is set to default.
 
 
 Step 2: Drop and Create TablePaste this query into the editor and click the blue Play (Execute) button:
