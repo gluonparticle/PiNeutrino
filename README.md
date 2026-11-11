@@ -310,7 +310,7 @@ Look at the left panel and confirm the database is set to default.
 Step 3: Create the Table
 Clear whatever is in the editor pane, paste this query, and click the blue Play / Execute button:
 
-SQL
+
 DROP TABLE IF EXISTS sales_data;
 
 CREATE TABLE sales_data (
@@ -329,7 +329,7 @@ FIELDS TERMINATED BY ',';
 Step 4: Insert the Data
 Clear the editor pane, paste the insert statement, and click the blue Play / Execute button:
 
-SQL
+
 INSERT INTO sales_data VALUES 
 (1, '2025-01-01', 'North', 'TV', 2, 300, 600),
 (2, '2025-01-01', 'East', 'TV', 1, 700, 700),
@@ -341,7 +341,7 @@ INSERT INTO sales_data VALUES
 Step 5: Run the Aggregation Query
 Clear the editor pane, enter the report query, and click Play / Execute:
 
-SQL
+
 SELECT region, SUM(sales) FROM sales_data GROUP BY region;
 Step 6: Render the Bar Chart
 Look directly beneath the query editor at the Results panel.
