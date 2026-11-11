@@ -320,7 +320,8 @@ FIELDS TERMINATED BY ',';
 
 Step 3: Insert the DataClear the editor, paste this insert statement, and click Play (Execute):
 
-```sqlINSERT INTO sales_data VALUES 
+```sql
+INSERT INTO sales_data VALUES 
 (1, '2025-01-01', 'North', 'TV', 2, 300, 600),
 (2, '2025-01-01', 'East', 'TV', 1, 700, 700),
 (3, '2025-01-02', 'North', 'Keyboard', 2, 350, 700),
